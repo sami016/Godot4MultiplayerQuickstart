@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://o352bv5kki24"]
+
+[ext_resource type="Script" path="res://Scenes/Game/Player/Player.cs" id="1_00til"]
+[ext_resource type="Script" path="res://Scenes/Game/Player/FpsController.cs" id="2_bsdyj"]
+[ext_resource type="Script" path="res://Scenes/Game/Player/MovementController.cs" id="3_ex5xs"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fo7lb"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x8v41"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_83ukd"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+
+[node name="player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+script = ExtResource("1_00til")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_fo7lb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_x8v41")
+
+[node name="camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.522648, 0)
+
+[node name="fps_controller" type="Node" parent="." node_paths=PackedStringArray("Character", "Camera")]
+script = ExtResource("2_bsdyj")
+Character = NodePath("..")
+Camera = NodePath("../camera")
+
+[node name="movement_controller" type="Node" parent="." node_paths=PackedStringArray("Camera")]
+script = ExtResource("3_ex5xs")
+Camera = NodePath("../camera")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_83ukd")

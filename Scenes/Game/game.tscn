@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmbly1s2jxotd"]
+
+[ext_resource type="Script" path="res://Scenes/Game/GameBootstrap.cs" id="1_imr8n"]
+
+[sub_resource type="Gradient" id="Gradient_v05b6"]
+offsets = PackedFloat32Array(0, 0.488189, 1)
+colors = PackedColorArray(1, 0, 0.900385, 1, 0.347434, 0.385827, 0.120502, 1, 1, 0.161304, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ajre3"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qbp05"]
+color_ramp = SubResource("Gradient_v05b6")
+noise = SubResource("FastNoiseLite_ajre3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u0iw1"]
+albedo_color = Color(0.423529, 1, 0.435294, 1)
+albedo_texture = SubResource("NoiseTexture2D_qbp05")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qdkut"]
+material = SubResource("StandardMaterial3D_u0iw1")
+
+[node name="game" type="Node3D"]
+script = ExtResource("1_imr8n")
+
+[node name="world" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="world"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_qdkut")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/Game/Player/player.tscn")
+spawn_path = NodePath("../world")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp5032sv5r5lp"]
+
+[ext_resource type="Script" path="res://Scenes/Game/ClientMode.cs" id="1_yfder"]
+
+[node name="client_mode" type="Node3D"]
+script = ExtResource("1_yfder")
