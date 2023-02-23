@@ -9,7 +9,7 @@ public partial class ServerMode : Node
     {
         var world = GetNode("../world");
         var peerConnected = new PeerConnected(world);
-        var peerDisconnected = new PeerDisconnected();
+        var peerDisconnected = new PeerDisconnected(world);
         AddChild(new Server(peerConnected, peerDisconnected));
         peerConnected.Handle(1);
     }

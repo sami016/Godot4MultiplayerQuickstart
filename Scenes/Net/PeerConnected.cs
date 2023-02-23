@@ -26,8 +26,8 @@ public class PeerConnected
     private void CreatePlayer(long id)
     {
         var player = _playerPackedScene.Instantiate<Player>();
-        player.Name = id.ToString();
-        _world.AddChild(player);
+        player.Name = "player_" + id.ToString();
+        _world.AddChild(player, true);
         player.SetMultiplayerAuthority((int)id);
     }
 
