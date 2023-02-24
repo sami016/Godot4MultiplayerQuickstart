@@ -17,7 +17,7 @@ public partial class GameBootstrap : Node3D
 		{
 			AddChild(new DedicatedServerMode());
 		}
-		else if (IsServerMode())
+		else if (IsHostMode())
 		{
 			AddChild(new ServerMode());
 		}
@@ -27,14 +27,15 @@ public partial class GameBootstrap : Node3D
 		}
 	}
 
-	public bool IsServerMode()
+	public bool IsHostMode()
 	{
 		var options = System.Environment.GetCommandLineArgs();
-		return options.Contains("-s");
+		return options.Contains("--host");
 	}
 
 	public bool IsDedicatedServerMode()
 	{
-		return false;
+		var options = System.Environment.GetCommandLineArgs();
+		return options.Contains("--dedicated");
 	}
 }
