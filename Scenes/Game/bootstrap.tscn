@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d07jjnmclashq"]
+
+[ext_resource type="Script" path="res://Scenes/Game/Bootstrap.cs" id="1_adnih"]
+
+[node name="bootstrap" type="Node3D"]
+script = ExtResource("1_adnih")

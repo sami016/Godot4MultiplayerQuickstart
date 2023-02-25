@@ -3,27 +3,37 @@ using System;
 
 using Multiplayer.Scenes.Game;
 using System.Linq;
+using Multiplayer.Utilities;
 
-public partial class GameBootstrap : Node3D
+public partial class Bootstrap : Node3D
 {
+	private static PackedScene _playPackedScene = ResourceLoader.Load<PackedScene>("res://Scenes/Game/play.tscn");
+
 	public override void _Ready()
 	{
-		Init();
+		CallDeferred(nameof(Init));
 	}
 
 	private void Init()
 	{
+		var play = _playPackedScene.Instantiate<Play>();
+		play.LaunchMode = GetLaunchMode();
+		LevelManager.Instance.SetActiveScene(play);
+	}
+
+	private LaunchMode GetLaunchMode()
+	{
 		if (IsDedicatedServerMode())
 		{
-			AddChild(new DedicatedServerMode());
+			return LaunchMode.Dedicated;
 		}
 		else if (IsHostMode())
 		{
-			AddChild(new ServerMode());
+			return LaunchMode.Host;
 		}
 		else
 		{
-			AddChild(new ClientMode());
+			return LaunchMode.Client;
 		}
 	}
 
