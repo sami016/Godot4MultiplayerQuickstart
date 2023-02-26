@@ -1,9 +1,9 @@
 GODOT=D:\Applications\Computing\Godot\Godot_v4.0-rc3_mono_win64\Godot_v4.0-rc3_mono_win64.exe
 DEBUG_CONNECT_TO=127.0.0.1
 
-build:
-	echo "build"
-	$(GODOT) --export Windows
+release:
+	echo "Starting export"
+	$(GODOT) --export-release "Windows Desktop"
 
 dedicated:
 	echo "Starting dedicated server..."
